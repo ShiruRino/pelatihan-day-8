@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:pendaftaran_app/core/routes/routes/app_pages.dart';
 import 'package:pendaftaran_app/core/routes/routes/app_routes.dart';
 import 'package:pendaftaran_app/main_binding.dart';
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const Pendaftaran());
 }
 
@@ -33,7 +36,7 @@ class _PendaftaranState extends State<Pendaftaran> {
   }
   
   void initialization() {
-    
+    FlutterNativeSplash.remove();
   }
 }
 
