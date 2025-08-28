@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:pendaftaran_app/layout/app_main_layout.dart';
+import 'package:pendaftaran_app/modules/auth/controller/auth_controller.dart';
 // import 'package:pendaftaran_app/layout/authenticated_layout.dart';
 
 class LoginView extends StatelessWidget {
@@ -8,6 +10,9 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthController authController = Get.find<AuthController>();
+    final TextEditingController emailC = TextEditingController();
+    final TextEditingController passC = TextEditingController();
     return AppMainLayout(body: Center(child: 
     SingleChildScrollView( padding: const EdgeInsets.symmetric(horizontal: 24),
     child: Column(
@@ -25,6 +30,7 @@ class LoginView extends StatelessWidget {
         const Text("Welcome Back!",style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
         const SizedBox(height: 30),
         TextField(
+          controller: emailC,
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.email_outlined),
             hintText: "Email",
@@ -35,6 +41,7 @@ class LoginView extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         TextField(
+          controller: passC,
           obscureText: true,
           decoration: InputDecoration(
             prefixIcon: const Icon(Icons.lock_outline),
@@ -44,23 +51,10 @@ class LoginView extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 25),
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {
-
-            },
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ), 
-            child: const Text('Login', style: TextStyle(fontSize: 16),
-            ),
-            ),
-        ),
+        const SizedBox(height: 25,),
+        Obx(()=>ElevatedButton(onPressed: authController.isLoading.value ? null : () {
+          authController.login(emailC.text.trim(), passC.text.trim());
+        }, child: authController.isLoading.value ? const CircularProgressIndicator(color: Colors.white,) : const Text('Login')))
       ],
     )),
     
