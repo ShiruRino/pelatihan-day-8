@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:pendaftaran_app/widgets/app_footer.dart';
 
 class AppMainLayout extends StatelessWidget {
   final Widget body;
-  // final Widget drawer;
-  // final Widget appBar;
-  // final Widget floatingActionButton;
-  // final Widget buttonNavigationBar;
+  // final Widget? drawer;
+  final Widget? appBar;
+  final Widget? floatingActionButton;
+  // final Widget? bottomNavigationBar;
   const AppMainLayout({
     super.key,
     required this.body,
-    // required this.drawer,
-    // required this.appBar,
-    // required this.floatingActionButton,
-    // required this.buttonNavigationBar
+    // this.drawer,
+    this.appBar,
+    this.floatingActionButton,
+    // this.bottomNavigationBar
     });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
     appBar: AppBar(),
-    body: body,
+    body: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Expanded(child: body),
+        Divider(),
+        AppFooter()
+      ],
+    ),
+    floatingActionButton: floatingActionButton,
     );
   }
 }
